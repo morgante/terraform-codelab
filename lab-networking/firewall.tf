@@ -18,7 +18,7 @@ resource "google_compute_firewall" "allow-ssh" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80", "22"]
+    ports    = ["22"]
   }
 
   source_ranges = ["0.0.0.0/0"]
@@ -32,7 +32,7 @@ resource "google_compute_firewall" "allow-http" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80", "443"]
+    ports    = ["80"]
   }
 
   # Allow traffic from everywhere to instances with an http-server tag
