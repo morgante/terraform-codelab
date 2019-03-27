@@ -34,5 +34,7 @@ module "vpc" {
         ip_cidr_range = "192.168.64.0/24"
       },
     ]
+    # Add your subnet’s secondary range below this line.
+
   }
 }

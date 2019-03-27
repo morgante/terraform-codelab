@@ -24,7 +24,7 @@ resource "google_compute_instance" "app" {
     }
   }
 
-  metadata_startup_script = "echo '<!doctype html><html><body><h1>Hello Google!</h1></body></html>' | sudo tee /var/www/html/index.html"
+  metadata_startup_script = "echo '<!doctype html><html><body><h1>Hello Google!</h1></body></html>' | sudo tee /var/www/html/index.html" # Edit this line
 
   tags = ["allow-ping", "allow-http", "allow-ssh"]
 }
