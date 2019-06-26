@@ -8,7 +8,7 @@ terraform {
 data "terraform_remote_state" "network" {
   backend = "gcs"
 
-  config {
+  config = {
     bucket  = "<my-project-id>-state-bucket" # Update this too
     prefix  = "terraform/lab/network"
   }

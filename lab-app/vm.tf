@@ -16,7 +16,7 @@ resource "google_compute_instance" "app" {
   }
 
   network_interface {
-    subnetwork         = "${data.terraform_remote_state.network.my_subnet_name}"
+    subnetwork         = data.terraform_remote_state.network.outputs.my_subnet_name
     subnetwork_project = "${var.project_id}"
 
     access_config {
