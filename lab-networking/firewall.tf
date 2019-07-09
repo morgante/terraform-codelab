@@ -1,8 +1,6 @@
 resource "google_compute_firewall" "allow-ping" {
   name    = "allow-ping"
-  network = "${module.vpc.network_name}"
-  project = "${google_project_service.compute.project}"
-
+  network = google_compute_network.vpc.self_link
   allow {
     protocol = "icmp"
   }
@@ -13,9 +11,7 @@ resource "google_compute_firewall" "allow-ping" {
 
 resource "google_compute_firewall" "allow-ssh" {
   name    = "allow-ssh"
-  network = "${module.vpc.network_name}"
-  project = "${google_project_service.compute.project}"
-
+  network = google_compute_network.vpc.self_link
   allow {
     protocol = "tcp"
     ports    = ["22"]
@@ -27,9 +23,7 @@ resource "google_compute_firewall" "allow-ssh" {
 
 resource "google_compute_firewall" "allow-http" {
   name    = "allow-http"
-  network = "${module.vpc.network_name}"
-  project = "${google_project_service.compute.project}"
-
+  network = google_compute_network.vpc.self_link
   allow {
     protocol = "tcp"
     ports    = ["80"]  # Edit this line

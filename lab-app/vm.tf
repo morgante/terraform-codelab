@@ -1,30 +1,29 @@
-data "google_compute_image" "apache" {
-  family  = "my-apache-webserver"
-  project = "${var.project_id}"
+data "google_compute_image" "ubuntu" {
+  family  = "ubuntu-1804-lts"
+  project = "ubuntu-os-cloud"
 }
 
 resource "google_compute_instance" "app" {
   name         = "my-app-instance"
-  project      = "${var.project_id}"
+  project      = var.project_id
   machine_type = "n1-standard-2"
-  zone         = "us-west1-a"
+  zone         = var.zone
 
   boot_disk {
     initialize_params {
-      image = "${data.google_compute_image.apache.self_link}"
+      image = data.google_compute_image.ubuntu.self_link
     }
   }
 
   network_interface {
-    subnetwork         = data.terraform_remote_state.network.outputs.my_subnet_name
-    subnetwork_project = "${var.project_id}"
+    subnetwork         = data.terraform_remote_state.network.outputs.first_subnet_name
+    subnetwork_project = var.project_id
 
     access_config {
       # Include this section to give the VM an external ip address
     }
   }
 
-  metadata_startup_script = "echo '<!doctype html><html><body><h1>Hello Google!</h1></body></html>' | sudo tee /var/www/html/index.html" # Edit this line
-
+  metadata_startup_script = "apt-get update && apt-get install nginx -y && echo '<!doctype html><html><body><h1>Hello Google!</h1></body></html>' | sudo tee /usr/share/nginx/html/index.html" # Edit this line
   tags = ["allow-ping", "allow-http", "allow-ssh"]
 }
