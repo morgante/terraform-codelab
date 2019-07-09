@@ -23,7 +23,6 @@ resource "google_compute_instance" "app" {
       # Include this section to give the VM an external ip address
     }
   }
-
-  metadata_startup_script = "apt-get update && apt-get install nginx -y && echo '<!doctype html><html><body><h1>Hello Google!</h1></body></html>' | sudo tee /usr/share/nginx/html/index.html" # Edit this line
+  metadata_startup_script =  "apt-get update && apt-get install nginx -y && rm /var/www/html/* && echo '<!doctype html><html><body><h1>Hello Google!</h1></body></html>' | sudo tee /var/www/html/index.html "
   tags = ["allow-ping", "allow-http", "allow-ssh"]
 }
